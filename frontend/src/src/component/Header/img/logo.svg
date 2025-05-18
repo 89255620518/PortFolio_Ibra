@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="150" viewBox="0 0 300 150">
+    <defs>
+        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#4a6cf7"/>
+        <stop offset="100%" stop-color="#2541b2"/>
+        </linearGradient>
+        
+        <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .logo-text { font-family: 'Arial', sans-serif; font-weight: 700; }
+        .logo-bg { transition: all 0.3s ease; }
+        .logo-bg:hover { opacity: 0.9; transform: scale(1.05); }
+        </style>
+    </defs>
+    
+    <!-- Фоновая форма -->
+    <rect x="10" y="10" width="280" height="130" rx="20" fill="url(#gradient)" class="logo-bg"/>
+    
+    <!-- Текст логотипа с анимацией -->
+    <text x="150" y="90" font-size="60" fill="white" text-anchor="middle" class="logo-text" style="animation: float 3s ease-in-out infinite">
+        IBRA
+    </text>
+    
+    <!-- Декоративные элементы -->
+    <circle cx="80" cy="60" r="8" fill="white" opacity="0.7"/>
+    <circle cx="220" cy="60" r="8" fill="white" opacity="0.7"/>
+    <path d="M100 40 Q150 20 200 40" stroke="white" stroke-width="2" fill="none" stroke-dasharray="5,3"/>
+</svg>

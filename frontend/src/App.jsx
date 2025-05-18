@@ -1,33 +1,59 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect, useState } from 'react'
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import './App.css'
+import Header from './src/component/header/header'
+import Footer from './src/component/Footer/Footer'
+import HomePage from './src/pages/index';
+import AdminPage from './src/pages/adminka';
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0, 0);
+  }, [pathname]);
+
+  return null;
+}
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const modalOpen = () => {
+    document.body.classList.add('no-scroll');
+    setIsModalOpen(true);
+  }
+
+  const modalClose = () => {
+    document.body.classList.remove('no-scroll');
+    setIsModalOpen(false);
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <>  
+      <Router>
+        <ScrollToTop />
+        <Header 
+          modalOpen = {modalOpen}
+          modalClose = {modalClose}
+          isModalOpen={isModalOpen}
+        />
+
+        <Routes>
+          <Route path="/" exact element={<HomePage
+            modalOpen = {modalOpen}
+            modalClose = {modalClose}
+            isModalOpen={isModalOpen}
+          />} />
+          <Route path="/admin" element={<AdminPage />} />
+        </Routes>
+
+        <Footer
+          modalOpen = {modalOpen}
+          modalClose = {modalClose}
+          isModalOpen={isModalOpen}
+        />
+      </Router>
     </>
   )
 }
