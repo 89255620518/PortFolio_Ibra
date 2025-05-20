@@ -13,9 +13,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-  max-width: 2100px
-}
 
 a {
   font-weight: 500;

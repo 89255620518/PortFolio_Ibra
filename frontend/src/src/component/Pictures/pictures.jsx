@@ -1,8 +1,23 @@
 import styles from "./pictures.module.scss";
 import fotoIbra from "./img/ibra.png";
 import fotoFon from "./img/font.png";
+import ModalComponent from "../modalCompanent/modalCompanent";
+import { useState } from "react";
 
-const PicturesComponent = () => {
+const PicturesComponent = ({ homeRef }) => {
+    const [isOpenModal, setIsOpenModal] = useState(false);
+
+    const openModal = () => {
+        document.body.classList.add('no-scroll');
+        homeRef.current.style.zIndex = "11";
+        setIsOpenModal(true)
+    }
+
+    const closeModal = () => {
+        document.body.classList.remove('no-scroll');
+        homeRef.current.style.zIndex = "3";
+        setIsOpenModal(false);
+    }
 
     return (
         <div className={styles.containerPictures}>
@@ -18,7 +33,7 @@ const PicturesComponent = () => {
                     </div>
 
                     <div className={styles.containerPictures__content__forms_form}>
-                        <button className={styles.containerPictures__content__forms_form_button}>Оставьте заявку</button>
+                        <button onClick={() => openModal()} className={styles.containerPictures__content__forms_form_button}>Оставьте заявку</button>
                     </div>
                 </div>
 
@@ -26,6 +41,8 @@ const PicturesComponent = () => {
                     <img className={styles.containerPictures__content__imgs_img} src={fotoIbra} alt="Иброхим" />
                 </div>
             </div>
+
+            {isOpenModal && <ModalComponent modalClose={closeModal} />}
         </div>
     )
 }
