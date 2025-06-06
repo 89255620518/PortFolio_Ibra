@@ -1,0 +1,276 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.modalContent {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 600px;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.4s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.closeButton {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #888;
+  transition: all 0.3s ease;
+  padding: 5px;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.closeButton:hover {
+  color: #333;
+  background: #f5f5f5;
+}
+
+.closeIcon {
+  font-size: 20px;
+}
+
+.modalTitle {
+  margin-bottom: 25px;
+  color: #2c3e50;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formRow {
+  display: flex;
+  gap: 20px;
+}
+@media (max-width: 576px) {
+  .formRow {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
+
+.formGroup {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.formGroup label {
+  font-weight: 500;
+  color: #555;
+  font-size: 14px;
+}
+.formGroup input,
+.formGroup textarea {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+.formGroup input:focus,
+.formGroup textarea:focus {
+  outline: none;
+  border-color: #4a6bff;
+  box-shadow: 0 0 0 3px rgba(74, 107, 255, 0.1);
+}
+.formGroup textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.submitButton {
+  background-color: #4a6bff;
+  color: white;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.submitButton:hover {
+  background-color: #3a5bef;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(74, 107, 255, 0.3);
+}
+.submitButton:active {
+  transform: translateY(0);
+}
+.submitButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.successAlert {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  animation: slideUp 0.4s ease;
+}
+.successAlert h3 {
+  color: #2c3e50;
+  margin: 20px 0 10px;
+  font-size: 22px;
+}
+.successAlert p {
+  color: #7f8c8d;
+  margin-bottom: 20px;
+}
+
+.errorText {
+  color: red;
+}
+
+.successIcon {
+  color: #2ecc71;
+  font-size: 60px;
+  animation: bounce 0.6s ease;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-20px);
+  }
+  60% {
+    transform: translateY(-10px);
+  }
+}
+.progressBar {
+  height: 4px;
+  background: #ecf0f1;
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 20px;
+}
+.progressBar::after {
+  content: "";
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: #2ecc71;
+  animation: progress 3s linear forwards;
+}
+
+@keyframes progress {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+@media (max-width: 768px) {
+  .modalContent {
+    width: 90%;
+    padding: 25px;
+    margin: 0 10px;
+  }
+  .errorText {
+    font-size: 9px;
+  }
+  .modalTitle {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+  .modalForm {
+    gap: 15px;
+  }
+  .formGroup input,
+  .formGroup textarea {
+    padding: 7px;
+    font-size: 12px;
+  }
+  .formGroup textarea {
+    min-height: 40px;
+  }
+  .submitButton {
+    padding: 12px;
+    font-size: 15px;
+  }
+  .closeButton {
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+  }
+}
+@media (max-width: 480px) {
+  .modalContent {
+    padding: 20px 15px;
+  }
+  .modalTitle {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+  .checkboxGroup label {
+    font-size: 14px;
+  }
+}/*# sourceMappingURL=modal.module.css.map */

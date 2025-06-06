@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import './App.css'
-import Header from './src/component/header/header'
-import Footer from './src/component/Footer/Footer'
+import Header from './src/component/header/header';
+import Footer from './src/component/Footer/footer';
 import HomePage from './src/pages/index';
 import AdminPage from './src/pages/adminka';
+import Guide from './src/component/guide/guide';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -18,6 +19,7 @@ function ScrollToTop() {
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const homeRef = useRef(null);
 
   const modalOpen = () => {
     document.body.classList.add('no-scroll');
@@ -44,14 +46,18 @@ function App() {
             modalOpen = {modalOpen}
             modalClose = {modalClose}
             isModalOpen={isModalOpen}
+            homeRef={homeRef}
           />} />
           <Route path="/admin" element={<AdminPage />} />
         </Routes>
+
+        <Guide />
 
         <Footer
           modalOpen = {modalOpen}
           modalClose = {modalClose}
           isModalOpen={isModalOpen}
+          homeRef={homeRef}
         />
       </Router>
     </>

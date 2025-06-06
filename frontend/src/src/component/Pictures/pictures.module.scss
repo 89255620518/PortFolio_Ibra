@@ -38,8 +38,8 @@
 
         &__imgs {
             position: relative;
-            width: 500px;
-            height: 700px;
+            height: 95%;
+            width: auto;
             aspect-ratio: 5/7;
 
             @media (min-width: 1700px) {
@@ -92,7 +92,8 @@
                     }
 
                     &_span {
-                        font-size: 70px;
+                        font-weight: 900;
+                        font-size: 60px;
 
                         @media (min-width: 1970px) {
                             font-size: 95px;
@@ -138,7 +139,7 @@
             flex-direction: column;
             align-items: center;
             width: 95%;
-            padding: 10px 5px 0;
+            padding: 28px 5px 0;
 
             &__imgs {
                 width: 70%;
@@ -157,7 +158,11 @@
                         align-items: center;
 
                         &_span {
-                            font-size: 30px;
+                            font-size: 35px;
+
+                            @media screen and (max-width: 500px) {
+                                font-size: 28px;
+                            }
                         }
                     }
                 }

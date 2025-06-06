@@ -1,0 +1,87 @@
+.containerAbout {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  font-family: "Inter", sans-serif;
+}
+.containerAbout__content__text_h1 {
+  font-size: 2.5rem;
+  color: #222;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+@media screen and (max-width: 500px) {
+  .containerAbout__content__text_h1 {
+    font-size: 24px;
+  }
+}
+.containerAbout .heroTitle {
+  font-size: 1.8rem;
+  color: #0066ff;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+@media screen and (max-width: 500px) {
+  .containerAbout .heroTitle {
+    font-size: 18px;
+  }
+}
+.containerAbout .paragraph {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #444;
+  margin-bottom: 1.2rem;
+}
+@media screen and (max-width: 500px) {
+  .containerAbout .paragraph {
+    text-align: center;
+    font-size: 15px;
+  }
+}
+.containerAbout .subtitle {
+  font-size: 1.4rem;
+  color: #333;
+  margin: 1.5rem 0 0.8rem 0;
+}
+@media screen and (max-width: 500px) {
+  .containerAbout .subtitle {
+    text-align: center;
+    font-size: 18px;
+  }
+}
+.containerAbout .accent {
+  color: #0066ff;
+  font-weight: 600;
+}
+.containerAbout .nickname {
+  background: #f0f7ff;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-family: monospace;
+}
+.containerAbout .tech {
+  background: #f0f0f0;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-family: monospace;
+  color: #d6336c;
+}
+.containerAbout .bold {
+  font-weight: 600;
+}
+.containerAbout .quote {
+  font-style: italic;
+  border-left: 3px solid #0066ff;
+  padding-left: 1rem;
+  color: #555;
+  margin: 1rem 0;
+}
+.containerAbout .cta {
+  font-size: 1.2rem;
+  text-align: center;
+  margin-top: 2rem;
+}
+.containerAbout .highlight {
+  color: #ff6b00;
+  font-weight: 700;
+}/*# sourceMappingURL=about.module.css.map */

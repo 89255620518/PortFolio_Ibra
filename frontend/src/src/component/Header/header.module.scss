@@ -15,6 +15,15 @@
     align-items: center;
     justify-content: center;
     z-index: 10;
+    transition: background 0.3s ease; // Добавляем плавный переход
+
+    &.scrolled {
+        background: #3a3af4;
+    }
+
+    &.mobileMenuOpen {
+        padding: 0 !important;
+    }
 
     &__content {
         display: flex;
@@ -26,6 +35,10 @@
 
         @media (min-width: 768px) and (max-width: 1050px) {
             width: 98%;
+        }
+
+        &.mobileMenuOpen {
+            width: 100% !important;
         }
 
         &__imgsLogo {
@@ -139,6 +152,10 @@
 
     &.open {
         right: 0;
+
+        @media screen and (max-width: 500px) {
+            width: 100%;
+        }
     }
 
     a {

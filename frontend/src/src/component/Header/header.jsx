@@ -5,10 +5,18 @@ import { useState, useEffect, useRef } from "react";
 
 const Header = ({ modalOpen, modalClose, isModalOpen }) => {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+    const [isScrolled, setIsScrolled] = useState(false);
     const mobileMenuRef = useRef(null);
     const burgerButtonRef = useRef(null);
 
     useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 10) {
+                setIsScrolled(true);
+            } else {
+                setIsScrolled(false)
+            }
+        }
         const handleResize = () => {
             setIsMobile(window.innerWidth < 768);
             if (window.innerWidth >= 768) {
@@ -24,10 +32,12 @@ const Header = ({ modalOpen, modalClose, isModalOpen }) => {
             }
         };
 
+        window.addEventListener('scroll', handleScroll);
         window.addEventListener('resize', handleResize);
         document.addEventListener('mousedown', handleClickOutside);
 
         return () => {
+            window.removeEventListener('scroll', handleScroll);
             window.removeEventListener('resize', handleResize);
             document.removeEventListener('mousedown', handleClickOutside);
         };
@@ -42,8 +52,10 @@ const Header = ({ modalOpen, modalClose, isModalOpen }) => {
     };
 
     return (
-        <div className={styles.containerHead}>
-            <div className={styles.containerHead__content}>
+        // <div className={`${styles.containerHead} ${styles.mobileMenu_container}`}>
+        //     <div className={`${styles.containerHead__content} ${styles.mobileMenu_content}`}>
+        <div className={`${styles.containerHead} ${isModalOpen ? styles.mobileMenuOpen : ''} ${isScrolled ? styles.scrolled : ''}`}>
+            <div className={`${styles.containerHead__content} ${isModalOpen ? styles.mobileMenuOpen : ''}`}>
                 <Link className={styles.containerHead__content__imgsLogo} to='/'>
                     <img className={styles.containerHead__content__imgsLogo_img} src={logoIbra} alt="Логотип Иброхим" />
                 </Link>
@@ -60,53 +72,52 @@ const Header = ({ modalOpen, modalClose, isModalOpen }) => {
                             <span></span>
                             <span></span>
                         </button>
-
-                        <div 
-                            ref={mobileMenuRef}
-                            className={`${styles.mobileMenu} ${isModalOpen ? styles.open : ''}`}
-                        >
-                            <button 
-                                className={styles.containerHead__content__buttons_button}
-                                onClick={modalClose}
+                            <div 
+                                ref={mobileMenuRef}
+                                className={`${styles.mobileMenu} ${isModalOpen ? styles.open : ''}`}
                             >
-                                Обо мне
-                            </button>
+                                <button 
+                                    className={styles.containerHead__content__buttons_button}
+                                    onClick={modalClose}
+                                >
+                                    Обо мне
+                                </button>
 
-                            <button 
-                                className={styles.containerHead__content__buttons_button}
-                                onClick={modalClose}
-                            >
-                                Опыт работы
-                            </button>
+                                <button 
+                                    className={styles.containerHead__content__buttons_button}
+                                    onClick={modalClose}
+                                >
+                                    Опыт работы
+                                </button>
 
-                            <button 
-                                className={styles.containerHead__content__buttons_button}
-                                onClick={modalClose}
-                            >
-                                Мои проекты
-                            </button>
+                                <button 
+                                    className={styles.containerHead__content__buttons_button}
+                                    onClick={modalClose}
+                                >
+                                    Мои проекты
+                                </button>
 
-                            <button 
-                                className={styles.containerHead__content__buttons_button}
-                                onClick={modalClose}
-                            >
-                                Клиенты
-                            </button>
+                                <button 
+                                    className={styles.containerHead__content__buttons_button}
+                                    onClick={modalClose}
+                                >
+                                    Клиенты
+                                </button>
 
-                            <button 
-                                className={styles.containerHead__content__buttons_button}
-                                onClick={modalClose}
-                            >
-                                Отзывы
-                            </button>
+                                <button 
+                                    className={styles.containerHead__content__buttons_button}
+                                    onClick={modalClose}
+                                >
+                                    Отзывы
+                                </button>
 
-                            <button 
-                                className={styles.containerHead__content__buttons_button}
-                                onClick={modalClose}
-                            >
-                                Контакты
-                            </button>
-                        </div>
+                                <button 
+                                    className={styles.containerHead__content__buttons_button}
+                                    onClick={modalClose}
+                                >
+                                    Контакты
+                                </button>
+                            </div>
                     </>
                 ) : ( 
                     <div className={styles.containerHead__content__buttons}>

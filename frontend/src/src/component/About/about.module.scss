@@ -1,0 +1,100 @@
+.containerAbout {
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: 'Inter', sans-serif; // Пример шрифта
+
+    &__content {
+        &__text_h1 {
+            font-size: 2.5rem;
+            color: #222;
+            margin-bottom: 2rem;
+            text-align: center;
+
+            @media screen and (max-width: 500px) {
+                font-size: 24px;
+            }
+        }
+    }
+
+    // Стили для текста
+    .heroTitle {
+        font-size: 1.8rem;
+        color: #0066ff;
+        margin-bottom: 1.5rem;
+        text-align: center;
+
+        @media screen and (max-width: 500px) {
+            font-size: 18px;
+        }
+    }
+
+    .paragraph {
+        font-size: 1.1rem;
+        line-height: 1.7;
+        color: #444;
+        margin-bottom: 1.2rem;
+
+        @media screen and (max-width: 500px) {
+            text-align: center;
+            font-size: 15px;
+        }
+    }
+
+    .subtitle {
+        font-size: 1.4rem;
+        color: #333;
+        margin: 1.5rem 0 0.8rem 0;
+
+        @media screen and (max-width: 500px) {
+            text-align: center;
+            font-size: 18px;
+        }
+    }
+
+    // Акцентные элементы
+    .accent {
+        color: #0066ff;
+        font-weight: 600;
+    }
+
+    .nickname {
+        background: #f0f7ff;
+        padding: 0.2rem 0.4rem;
+        border-radius: 4px;
+        font-family: monospace;
+    }
+
+    .tech {
+        background: #f0f0f0;
+        padding: 0.2rem 0.4rem;
+        border-radius: 4px;
+        font-family: monospace;
+        color: #d6336c;
+    }
+
+    .bold {
+        font-weight: 600;
+    }
+
+    // Цитата
+    .quote {
+        font-style: italic;
+        border-left: 3px solid #0066ff;
+        padding-left: 1rem;
+        color: #555;
+        margin: 1rem 0;
+    }
+
+    // Призыв к действию
+    .cta {
+        font-size: 1.2rem;
+        text-align: center;
+        margin-top: 2rem;
+    }
+
+    .highlight {
+        color: #ff6b00;
+        font-weight: 700;
+    }
+}
