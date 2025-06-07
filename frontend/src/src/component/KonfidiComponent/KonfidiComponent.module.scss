@@ -1,0 +1,64 @@
+.containerKonfidi {
+    margin: 0 auto;
+    padding: 100px 10px;
+    background: mediumseagreen;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__h1 {
+        font-size: 2.5rem;
+        color: #222;
+        margin-bottom: 2rem;
+        text-align: center;
+
+        @media screen and (max-width: 500px) {
+            font-size: 18px;
+        }
+
+        &::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #ff8a00, #e52e71);
+            margin: 1rem auto 0;
+            border-radius: 2px;
+        }
+    }
+
+    &__content {
+        max-width: 1200px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+        gap: 30px;
+
+        &_text {
+            font-size: 28px;
+            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            color: #000;
+
+            @media screen and (max-width: 500px) {
+                font-size: 16px;
+            }
+
+
+            &_span {
+                font-size: 25px;
+                font-weight: 400;
+                padding: 0 0 0 20px;
+                color: #000;
+
+                @media screen and (max-width: 500px) {
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+}

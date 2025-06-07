@@ -59,7 +59,13 @@ const Footer = ({ homeRef }) => {
                 </div>
 
                 <div className={styles.containerFooter__content__copyright}>
+                    <h1 className={styles.containerFooter__content__copyright_h1}>© Все права защищены</h1>
+
                     <h1 className={styles.containerFooter__content__copyright_h1}>© Copyright 2025 − Эргешев Иброхим</h1>
+
+                    <Link to="/policy">
+                        <button className={styles.containerFooter__content__copyright_h1}>ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ</button>
+                    </Link>
                 </div>
             </div>
             <div className={styles.containerFooter__span2}></div>

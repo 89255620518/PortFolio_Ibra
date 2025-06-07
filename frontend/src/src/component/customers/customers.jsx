@@ -116,25 +116,3 @@ const Customers = () => {
 }
 
 export default Customers;
-
-// const Customers = () => {
-
-//     return (
-//         <div className={styles.containerCustomers}>
-//             <h1 className={styles.containerCustomers__h1}>Мои клиенты</h1>
-//             <div className={styles.containerCustomers__content}>
-//                 <div className={styles.containerCustomers__content_grids}>
-//                     {customerArr.map((customer) => (
-//                         <div className={styles.containerCustomers__content_grid}>
-//                             <Link to={customer.link} className={styles.containerCustomers__content_grid_imgs}>
-//                                 <img src={customer.foto} className={styles.containerCustomers__content_grid_imgs_img} alt="Клиенты Иброхима"/>
-//                             </Link>
-//                         </div>
-//                     ))}
-//                 </div>
-//             </div>
-//         </div>
-//     )
-// }
-
-// export default Customers;

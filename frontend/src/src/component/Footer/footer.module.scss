@@ -130,8 +130,21 @@
 
 
         &__copyright {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
 
             &_h1 {
+                font-size: 16px;
+                text-align: center;
+
+                @media screen and (max-width: 700px) {
+                    font-size: 10px;
+                }
+            }
+
+            &_button {
                 font-size: 16px;
                 text-align: center;
 

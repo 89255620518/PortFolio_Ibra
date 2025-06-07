@@ -6,6 +6,7 @@ import Footer from './src/component/Footer/footer';
 import HomePage from './src/pages/index';
 import AdminPage from './src/pages/adminka';
 import Guide from './src/component/guide/guide';
+import Konfidi from './src/pages/konfidi';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -49,6 +50,7 @@ function App() {
             homeRef={homeRef}
           />} />
           <Route path="/admin" element={<AdminPage />} />
+          <Route path="/policy" element={<Konfidi />} />
         </Routes>
 
         <Guide />
