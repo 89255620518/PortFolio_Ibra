@@ -104,12 +104,12 @@ const Header = ({ modalOpen, modalClose, isModalOpen }) => {
                                     Клиенты
                                 </button>
 
-                                <button 
+                                {/* <button 
                                     className={styles.containerHead__content__buttons_button}
                                     onClick={modalClose}
                                 >
                                     Отзывы
-                                </button>
+                                </button> */}
 
                                 <button 
                                     className={styles.containerHead__content__buttons_button}
@@ -137,9 +137,9 @@ const Header = ({ modalOpen, modalClose, isModalOpen }) => {
                             Клиенты
                         </button>
 
-                        <button className={styles.containerHead__content__buttons_button}>
+                        {/* <button className={styles.containerHead__content__buttons_button}>
                             Отзывы
-                        </button>
+                        </button> */}
 
                         <button className={styles.containerHead__content__buttons_button}>
                             Контакты

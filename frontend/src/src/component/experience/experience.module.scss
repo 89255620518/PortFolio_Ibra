@@ -12,6 +12,16 @@
         @media screen and (max-width: 500px) {
             font-size: 24px;
         }
+
+        &::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #ff8a00, #e52e71);
+            margin: 1rem auto 0;
+            border-radius: 2px;
+        }
     }
 
     &__content {

@@ -1,7 +1,9 @@
 
 import About from "../component/About/about";
+import Customers from "../component/customers/customers";
 import Experience from "../component/experience/experience";
 import PicturesComponent from "../component/Pictures/pictures";
+import RecentProjects from "../component/RecentProjects/RecentProjects"
 import styles from "../pagesStyle/style.module.scss"
 
 const HomePage = ({ modalOpen, modalClose, isModalOpen, homeRef }) => {
@@ -10,6 +12,8 @@ const HomePage = ({ modalOpen, modalClose, isModalOpen, homeRef }) => {
             <PicturesComponent modalClose={modalClose} modalOpen={modalOpen} isModalOpen={isModalOpen} homeRef={homeRef} />
             <About />
             <Experience />
+            <RecentProjects />
+            <Customers />
         </div>
     )
 }
