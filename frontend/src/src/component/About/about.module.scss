@@ -108,3 +108,80 @@
         font-weight: 700;
     }
 }
+
+.resumeWrapper {
+    margin: 2rem 0;
+    perspective: 1000px;
+    text-align: center;
+}
+
+.resumeButton {
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    color: white;
+    border-radius: 12px;
+    text-decoration: none;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    border: none;
+    cursor: pointer;
+    text-align: center;
+
+    &:hover {
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+
+        .resumeHoverEffect {
+            transform: translateY(0) rotate(0deg);
+            opacity: 1;
+        }
+    }
+
+    &:active {
+        transform: translateY(1px);
+    }
+}
+
+.resumeIcon {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    transition: transform 0.3s ease;
+
+    .resumeButton:hover & {
+        transform: rotate(15deg) scale(1.1);
+    }
+}
+
+.resumeText {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.resumeAction {
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.resumeHoverEffect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg,
+            transparent 45%,
+            rgba(255, 255, 255, 0.3) 50%,
+            transparent 55%);
+    transform: translateY(-100%) rotate(10deg);
+    opacity: 0;
+    transition: all 0.5s ease;
+    pointer-events: none;
+}

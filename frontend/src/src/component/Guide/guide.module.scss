@@ -249,3 +249,52 @@
         opacity: 1;
     }
 }
+
+.contactForm {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    &_input {
+        width: 100%;
+        border-radius: 10px;
+        padding: 5px;
+        border: 2px solid #4545ff;
+    }
+}
+
+.error {
+    border: 2px solid red;
+}
+
+.errorChek {
+    color: red;
+}
+
+.errorText {
+    color: red;
+}
+
+.checkboxGroup__label {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    font-size: 11px;
+}
+
+.submitButton {
+    background: #1e1ef9;
+    color: #ffffff;
+
+    &:hover {
+        cursor: pointer;
+        box-shadow: 1px 2px 2px 2px blue;
+        background: #ababee !important;
+        color: #2900ff !important;
+    }
+
+    &:active {
+        cursor: grabbing;
+    }
+}
