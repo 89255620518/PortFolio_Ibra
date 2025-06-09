@@ -1,19 +1,20 @@
 import { useState } from 'react';
 import styles from "./modal.module.scss";
 import SuccessAlert from '../successAlert/successAlert';
+import AppService from '../../api/apiService';
 
 const ModalComponent = ({ modalClose }) => {
     const [formData, setFormData] = useState({
-        name: '',
+        first_name: '',
         email: '',
-        phone: '',
-        message: ''
+        phone_number: '',
+        comments: '',
+        privacy_policy_checked: false
     });
     const [errors, setErrors] = useState({});
-    const [agree, setAgree] = useState(false);
-    const [agreeError, setAgreeError] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [submitError, setSubmitError] = useState('');
 
     const handleOverlayClick = (e) => {
         if (e.target === e.currentTarget) {
@@ -26,11 +27,12 @@ const ModalComponent = ({ modalClose }) => {
     };
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const { name, value, type, checked } = e.target;
         setFormData(prev => ({
             ...prev,
-            [name]: value
+            [name]: type === 'checkbox' ? checked : value
         }));
+        
         if (errors[name]) {
             setErrors(prev => ({
                 ...prev,
@@ -43,8 +45,8 @@ const ModalComponent = ({ modalClose }) => {
         const newErrors = {};
         let isValid = true;
 
-        if (!formData.name.trim()) {
-            newErrors.name = 'Пожалуйста, введите ваше имя';
+        if (!formData.first_name.trim()) {
+            newErrors.first_name = 'Пожалуйста, введите ваше имя';
             isValid = false;
         }
 
@@ -56,16 +58,14 @@ const ModalComponent = ({ modalClose }) => {
             isValid = false;
         }
 
-        if (!formData.phone.trim()) {
-            newErrors.phone = 'Пожалуйста, введите ваш телефон';
+        if (!formData.phone_number.trim()) {
+            newErrors.phone_number = 'Пожалуйста, введите ваш телефон';
             isValid = false;
         }
 
-        if (!agree) {
-            setAgreeError('Необходимо согласие с политикой конфиденциальности');
+        if (!formData.privacy_policy_checked) {
+            newErrors.privacy_policy_checked = 'Необходимо принять политику конфиденциальности';
             isValid = false;
-        } else {
-            setAgreeError('');
         }
 
         setErrors(newErrors);
@@ -75,25 +75,34 @@ const ModalComponent = ({ modalClose }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
+        setSubmitError('');
     
         if (validate()) {
-            // Имитация отправки данных
-            console.log(formData, 'form');
-            
-            setIsLoading(false);
-            setIsSubmitted(true);
-            
-            // Очистка формы через 3 секунды
-            setTimeout(() => {
-                setFormData({
-                    name: "",
-                    email: "",
-                    phone: "",
-                    message: ""
+            try {
+                await AppService.createApplication({
+                    ...formData,
+                    privacy_policy_checked: true
                 });
-                setIsSubmitted(false);
-                modalClose();
-            }, 3000);
+                setIsLoading(false);
+                setIsSubmitted(true);
+                
+                // Очистка формы через 3 секунды
+                setTimeout(() => {
+                    setFormData({
+                        first_name: "",
+                        email: "",
+                        phone_number: "",
+                        comments: "",
+                        privacy_policy_checked: false
+                    });
+                    setIsSubmitted(false);
+                    modalClose();
+                }, 3000);
+            } catch (error) {
+                console.error('Ошибка при отправке данных:', error);
+                setSubmitError(error.message || 'Ошибка при отправке формы');
+                setIsLoading(false);
+            }
         } else {
             setIsLoading(false);
         }
@@ -115,18 +124,20 @@ const ModalComponent = ({ modalClose }) => {
                 <button className={styles.closeButton} onClick={modalClose}>×</button>
                 <h2 className={styles.modalTitle}>Оставьте заявку</h2>
                 
+                {submitError && <div className={styles.submitError}>{submitError}</div>}
+                
                 <form onSubmit={handleSubmit} className={styles.modalForm}>
                     <div className={styles.formGroup}>
-                        <label htmlFor="name">Имя</label>
+                        <label htmlFor="first_name">Имя</label>
                         <input
                             type="text"
-                            id="name"
-                            name="name"
-                            value={formData.name}
+                            id="first_name"
+                            name="first_name"
+                            value={formData.first_name}
                             onChange={handleChange}
-                            className={errors.name ? styles.errorInput : ''}
+                            className={errors.first_name ? styles.errorInput : ''}
                         />
-                        {errors.name && <span className={styles.errorText}>{errors.name}</span>}
+                        {errors.first_name && <span className={styles.errorText}>{errors.first_name}</span>}
                     </div>
                     
                     <div className={styles.formGroup}>
@@ -143,24 +154,24 @@ const ModalComponent = ({ modalClose }) => {
                     </div>
                     
                     <div className={styles.formGroup}>
-                        <label htmlFor="phone">Телефон</label>
+                        <label htmlFor="phone_number">Телефон</label>
                         <input
                             type="tel"
-                            id="phone"
-                            name="phone"
-                            value={formData.phone}
+                            id="phone_number"
+                            name="phone_number"
+                            value={formData.phone_number}
                             onChange={handleChange}
-                            className={errors.phone ? styles.errorInput : ''}
+                            className={errors.phone_number ? styles.errorInput : ''}
                         />
-                        {errors.phone && <span className={styles.errorText}>{errors.phone}</span>}
+                        {errors.phone_number && <span className={styles.errorText}>{errors.phone_number}</span>}
                     </div>
                     
                     <div className={styles.formGroup}>
-                        <label htmlFor="message">Сообщение</label>
+                        <label htmlFor="comments">Сообщение</label>
                         <textarea
-                            id="message"
-                            name="message"
-                            value={formData.message}
+                            id="comments"
+                            name="comments"
+                            value={formData.comments}
                             onChange={handleChange}
                         />
                     </div>
@@ -169,20 +180,18 @@ const ModalComponent = ({ modalClose }) => {
                         <div>
                             <input
                                 type="checkbox"
-                                id="agree"
-                                checked={agree}
-                                onChange={(e) => {
-                                    setAgree(e.target.checked);
-                                    if (agreeError && e.target.checked) {
-                                        setAgreeError('');
-                                    }
-                                }}
+                                id="privacy_policy_checked"
+                                name="privacy_policy_checked"
+                                checked={formData.privacy_policy_checked}
+                                onChange={handleChange}
                             />
-                            <label htmlFor="agree">
+                            <label htmlFor="privacy_policy_checked">
                                 Я согласен с политикой конфиденциальности
                             </label>
                         </div>
-                        {agreeError && <span className={styles.errorText}>{agreeError}</span>}
+                        {errors.privacy_policy_checked && (
+                            <span className={styles.errorText}>{errors.privacy_policy_checked}</span>
+                        )}
                     </div>
                     
                     <button 

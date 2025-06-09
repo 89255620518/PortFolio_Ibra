@@ -1,4 +1,3 @@
-const { error } = require('console');
 const { Applications } = require('../models/applications.cjs');
 const { validationResult } = require('express-validator');
 const { sendEmail } = require('../utils/sendEmail.cjs');
@@ -11,12 +10,6 @@ exports.createApplication = async (req, res) => {
 
     try {
         const { first_name, email, phone_number, comments } = req.body;
-
-        if (!req.body.privacy_policy_checked) {
-            return res.status(400).json({
-                errors: "Необходимо принять политику конфиденциальности"
-            });
-        }
 
         const newApplication = await Applications.create({
             first_name,

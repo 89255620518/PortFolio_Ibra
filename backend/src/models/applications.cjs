@@ -1,6 +1,4 @@
 const { Model, DataTypes } = require("sequelize");
-const bcrypt = require("bcryptjs");
-const { sequelize } = require("./index.cjs");
 
 class Applications extends Model {
     static validatePhoneNumber(phone) {
@@ -18,7 +16,7 @@ const initializeApplicationsModels = (sequelize) => {
                 primaryKey: true,
             },
 
-            firstName: {
+            first_name: {
                 type: DataTypes.STRING,
                 allowNull: false,
                 validate: {
@@ -35,7 +33,7 @@ const initializeApplicationsModels = (sequelize) => {
                 },
             },
 
-            phoneNumber: {
+            phone_number: {
                 type: DataTypes.STRING,
                 allowNull: true,
                 validate: {
@@ -45,7 +43,6 @@ const initializeApplicationsModels = (sequelize) => {
                         }
                     },
                 },
-                field: "phone_number",
             },
 
             comments: {
@@ -59,14 +56,7 @@ const initializeApplicationsModels = (sequelize) => {
             privacyPolicyChecked: {
                 type: DataTypes.BOOLEAN,
                 allowNull: false,
-                defaultValue: false, // можно установить false по умолчанию
-                validate: {
-                    isTrue(value) {
-                        if (value !== true) {
-                            throw new Error("Необходимо согласие с политикой конфиденциальности");
-                        }
-                    },
-                },
+                defaultValue: false,
                 field: "privacy_policy_checked", // для snake_case в БД
             },
         },
