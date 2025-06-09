@@ -29,7 +29,7 @@ const experiences = [
         }
     ];
 
-const Experience = () => {
+const Experience = ({ experiencesRef }) => {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [isMobile, setIsMobile] = useState(false);
 
@@ -50,7 +50,7 @@ const Experience = () => {
     };
 
     return (
-        <div className={styles.containerExperience}>
+        <div ref={experiencesRef} className={styles.containerExperience}>
             <h1 className={styles.containerExperience__h1}>Опыт работы</h1>
             <div className={styles.containerExperience__content}>
                 {isMobile ? (

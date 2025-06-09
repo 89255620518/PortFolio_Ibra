@@ -212,7 +212,7 @@ const cardVariants = {
     }
 };
 
-const RecentProjects = () => {
+const RecentProjects = ({ projectsRef }) => {
     const backgroundColors = [
         'linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%)',
         'linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)',
@@ -223,7 +223,7 @@ const RecentProjects = () => {
     ];
 
     return (
-        <div className={styles.containerRecent}>
+        <div ref={projectsRef} className={styles.containerRecent}>
             <h2 className={styles.containerRecent__h1}>Мои последние проекты</h2>
             <div className={styles.projectsGrid}>
                 {projects.map((project, index) => (

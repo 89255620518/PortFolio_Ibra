@@ -87,9 +87,9 @@ const customerArr = [
     },
 
 ]
-const Customers = () => {
+const Customers = ({ customersRef }) => {
     return (
-        <div className={styles.containerCustomers}>
+        <div ref={customersRef} className={styles.containerCustomers}>
             <h1 className={styles.title}>Мои клиенты</h1>
             <div className={styles.customersGrid}>
                 {customerArr.map((customer) => (

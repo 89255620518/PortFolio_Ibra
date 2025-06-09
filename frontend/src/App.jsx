@@ -5,7 +5,7 @@ import Header from './src/component/header/header';
 import Footer from './src/component/Footer/footer';
 import HomePage from './src/pages/index';
 import AdminPage from './src/pages/adminka';
-import Guide from './src/component/guide/guide';
+import Guide from './src/component/Guide/guide';
 import Konfidi from './src/pages/konfidi';
 
 function ScrollToTop() {
@@ -21,6 +21,11 @@ function ScrollToTop() {
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const homeRef = useRef(null);
+  const aboutRef = useRef(null);
+  const experiencesRef = useRef(null);
+  const projectsRef = useRef(null);
+  const customersRef = useRef(null);
+  const footerRef = useRef(null);
 
   const modalOpen = () => {
     document.body.classList.add('no-scroll');
@@ -40,6 +45,12 @@ function App() {
           modalOpen = {modalOpen}
           modalClose = {modalClose}
           isModalOpen={isModalOpen}
+          homeRef={homeRef}
+          aboutRef={aboutRef}
+          experiencesRef={experiencesRef}
+          projectsRef={projectsRef}
+          customersRef={customersRef}
+          footerRef={footerRef}
         />
 
         <Routes>
@@ -48,6 +59,11 @@ function App() {
             modalClose = {modalClose}
             isModalOpen={isModalOpen}
             homeRef={homeRef}
+            aboutRef={aboutRef}
+            experiencesRef={experiencesRef}
+            projectsRef={projectsRef}
+            customersRef={customersRef}
+            footerRef={footerRef}
           />} />
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/policy" element={<Konfidi />} />
@@ -60,6 +76,7 @@ function App() {
           modalClose = {modalClose}
           isModalOpen={isModalOpen}
           homeRef={homeRef}
+          footerRef={footerRef}
         />
       </Router>
     </>

@@ -7,7 +7,7 @@ import phoneIcon from './img/icons8-телефон.svg';
 import ModalComponent from "../modalCompanent/modalCompanent";
 import { useState } from "react";
 
-const Footer = ({ homeRef }) => {
+const Footer = ({ homeRef, footerRef }) => {
     const [isOpenModal, setIsOpenModal] = useState(false);
     
     const openModal = () => {
@@ -22,7 +22,7 @@ const Footer = ({ homeRef }) => {
         setIsOpenModal(false);
     }
     return (
-        <div className={styles.containerFooter}>
+        <div ref={footerRef} className={styles.containerFooter}>
             <div className={styles.containerFooter__span1}></div>
             <div className={styles.containerFooter__content}>
                 <div className={styles.containerFooter__content__links}>

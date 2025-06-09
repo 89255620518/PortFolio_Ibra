@@ -1,13 +1,25 @@
 import styles from './header.module.scss';
 import logoIbra from './img/logo.svg';
-import { Link } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useState, useEffect, useRef } from "react";
 
-const Header = ({ modalOpen, modalClose, isModalOpen }) => {
+const Header = ({
+    modalOpen,
+    modalClose,
+    isModalOpen,
+    aboutRef,
+    experiencesRef,
+    projectsRef,
+    customersRef,
+    footerRef
+
+}) => {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
     const [isScrolled, setIsScrolled] = useState(false);
     const mobileMenuRef = useRef(null);
     const burgerButtonRef = useRef(null);
+    const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -51,6 +63,51 @@ const Header = ({ modalOpen, modalClose, isModalOpen }) => {
         }
     };
 
+    // const scrollToRef = (ref) => {
+    //     if (ref && ref.current) {
+    //         ref.current.scrollIntoView({ behavior: "smooth" });
+    //     } else {
+    //         console.error("Ref is undefined or does not have a current property");
+    //     }
+    // }
+
+    const scrollToref = (ref) => {
+        if (ref && ref.current) {
+            ref.current.scrollIntoView({ behavior: "smooth" });
+        } else {
+            console.error("Ref is undefined or does not have a current property");
+        }
+    }
+
+    const handleScroll = (ref) => {
+        if (location.pathname === '/') {
+            if (isModalOpen) {
+                modalClose();
+                setTimeout(() => {
+                    scrollToref(ref)
+                }, 300);
+            } else {
+                scrollToref(ref)
+            }
+        } else {
+            navigate('/');
+            setTimeout(() => {
+                if (isModalOpen) {
+                    modalClose();
+                    setTimeout(() => {
+                        scrollToref(ref)
+                    }, 300);
+                } else {
+                    setTimeout(() => {
+                        scrollToref(ref)
+                    }, 300);
+                }
+            }, 400);
+        }
+
+    }
+
+    
     return (
         // <div className={`${styles.containerHead} ${styles.mobileMenu_container}`}>
         //     <div className={`${styles.containerHead__content} ${styles.mobileMenu_content}`}>
@@ -78,28 +135,28 @@ const Header = ({ modalOpen, modalClose, isModalOpen }) => {
                             >
                                 <button 
                                     className={styles.containerHead__content__buttons_button}
-                                    onClick={modalClose}
+                                    onClick={() => handleScroll(aboutRef)}
                                 >
                                     Обо мне
                                 </button>
 
                                 <button 
                                     className={styles.containerHead__content__buttons_button}
-                                    onClick={modalClose}
+                                    onClick={() => handleScroll(experiencesRef)}
                                 >
                                     Опыт работы
                                 </button>
 
                                 <button 
                                     className={styles.containerHead__content__buttons_button}
-                                    onClick={modalClose}
+                                    onClick={() => handleScroll(projectsRef)}
                                 >
                                     Мои проекты
                                 </button>
 
                                 <button 
                                     className={styles.containerHead__content__buttons_button}
-                                    onClick={modalClose}
+                                    onClick={() => handleScroll(customersRef)}
                                 >
                                     Клиенты
                                 </button>
@@ -113,7 +170,7 @@ const Header = ({ modalOpen, modalClose, isModalOpen }) => {
 
                                 <button 
                                     className={styles.containerHead__content__buttons_button}
-                                    onClick={modalClose}
+                                    onClick={() => handleScroll(footerRef)}
                                 >
                                     Контакты
                                 </button>
@@ -121,29 +178,47 @@ const Header = ({ modalOpen, modalClose, isModalOpen }) => {
                     </>
                 ) : ( 
                     <div className={styles.containerHead__content__buttons}>
-                        <button className={styles.containerHead__content__buttons_button}>
-                            Обо мне
-                        </button>
+                        <button 
+                                    className={styles.containerHead__content__buttons_button}
+                                    onClick={() => handleScroll(aboutRef)}
+                                >
+                                    Обо мне
+                                </button>
 
-                        <button className={styles.containerHead__content__buttons_button}>
-                            Опыт работы
-                        </button>
+                                <button 
+                                    className={styles.containerHead__content__buttons_button}
+                                    onClick={() => handleScroll(experiencesRef)}
+                                >
+                                    Опыт работы
+                                </button>
 
-                        <button className={styles.containerHead__content__buttons_button}>
-                            Мои проекты
-                        </button>
+                                <button 
+                                    className={styles.containerHead__content__buttons_button}
+                                    onClick={() => handleScroll(projectsRef)}
+                                >
+                                    Мои проекты
+                                </button>
 
-                        <button className={styles.containerHead__content__buttons_button}>
-                            Клиенты
-                        </button>
+                                <button 
+                                    className={styles.containerHead__content__buttons_button}
+                                    onClick={() => handleScroll(customersRef)}
+                                >
+                                    Клиенты
+                                </button>
 
-                        {/* <button className={styles.containerHead__content__buttons_button}>
-                            Отзывы
-                        </button> */}
+                                {/* <button 
+                                    className={styles.containerHead__content__buttons_button}
+                                    onClick={modalClose}
+                                >
+                                    Отзывы
+                                </button> */}
 
-                        <button className={styles.containerHead__content__buttons_button}>
-                            Контакты
-                        </button>
+                                <button 
+                                    className={styles.containerHead__content__buttons_button}
+                                    onClick={() => handleScroll(footerRef)}
+                                >
+                                    Контакты
+                                </button>
                     </div>
                 )}
             </div>

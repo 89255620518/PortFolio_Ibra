@@ -1,8 +1,8 @@
 import styles from './about.module.scss';
 
-const About = () => {
+const About = ({ aboutRef }) => {
     return (
-        <div className={styles.containerAbout}>
+        <div ref={aboutRef} className={styles.containerAbout}>
         <div className={styles.containerAbout__content}>
             <div className={styles.containerAbout__content_text}>
             <h1 className={styles.containerAbout__content__text_h1}>Обо мне</h1>
