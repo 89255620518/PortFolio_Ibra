@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react'
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import './App.css'
-import Header from './src/component/header/header';
+import Header from './src/component/Header/header';
 import Footer from './src/component/Footer/footer';
 import HomePage from './src/pages/index';
 import AdminPage from './src/pages/adminka';
