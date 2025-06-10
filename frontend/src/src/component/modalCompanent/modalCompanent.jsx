@@ -225,6 +225,7 @@ const ModalComponent = ({ modalClose }) => {
                                 name="privacy_policy_checked"
                                 checked={formData.privacy_policy_checked}
                                 onChange={handleChange}
+                                className={styles.checkboxGroup_check}
                             />
                             <label htmlFor="privacy_policy_checked">
                                 Я согласен с политикой конфиденциальности

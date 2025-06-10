@@ -80,6 +80,10 @@
     font-size: 20px;
 }
 
+.checkboxGroup_check {
+    background: #ffffff;
+}
+
 .modalTitle {
     margin-bottom: 25px;
     color: #2c3e50;
@@ -123,6 +127,8 @@
         border-radius: 8px;
         font-size: 16px;
         transition: all 0.3s ease;
+        background: #ffffff;
+        color: #000;
 
         &:focus {
             outline: none;
@@ -292,6 +298,10 @@
     }
 }
 
+.checkboxGroup label {
+    color: #000;    
+}
+
 @media (max-width: 480px) {
     .modalContent {
         padding: 20px 15px;
@@ -304,5 +314,6 @@
 
     .checkboxGroup label {
         font-size: 14px;
+
     }
 }
