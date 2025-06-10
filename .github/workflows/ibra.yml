@@ -1,0 +1,19 @@
+# name: Deploy to Server
+
+# on:
+#   push:
+#     branches: [main]
+
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: SSH Deploy
+#         uses: appleboy/ssh-action@master
+#         with:
+#           host: ${{ secrets.BEGET_HOST }}
+#           username: ${{ secrets.BEGET_USERNAME }}
+#           password: ${{ secrets.BEGET_PASSWORD }}
+#           script: |
+#             cd /var/www/PortFolio_Ibra
+#             git pull origin main

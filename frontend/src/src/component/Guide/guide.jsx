@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import styles from './guide.module.scss';
 import emailIcon from './img/icons8-cообщение-облачко.svg';
 import AppService from '../../api/apiService';
@@ -48,22 +48,22 @@ const Guide = () => {
         '👪', '🗣️', '👤', '👥', '🫂', '👣', '🦰', '🦱', '🦳', '🦲'
     ];
 
-    const modalOpen = () => setIsModalOpen(true);
-    const modalClose = () => {
+    const modalOpen = useCallback(() => setIsModalOpen(true), []);
+    const modalClose = useCallback(() => {
         setIsModalOpen(false);
         setIsSubmitted(false);
         setChatMessages([{ text: 'Привет! Чем могу помочь?', isBot: true }]);
-    };
+    }, []);
 
-    const addEmoji = (emoji) => {
+    const addEmoji = useCallback((emoji) => {
         setMessage(prev => prev + emoji);
-    };
+    }, []);
 
-    const toggleEmojis = () => {
-        setShowEmojis(!showEmojis);
-    };
+    const toggleEmojis = useCallback(() => {
+        setShowEmojis(prev => !prev);
+    }, []);
 
-    const handleSendMessage = () => {
+    const handleSendMessage = useCallback(() => {
         if (message.trim() === '') return;
 
         const newMessages = [...chatMessages, { text: message, isBot: false }];
@@ -71,8 +71,8 @@ const Guide = () => {
         setMessage('');
 
         setTimeout(() => {
-            setChatMessages([
-                ...newMessages,
+            setChatMessages(prev => [
+                ...prev,
                 {
                     text: 'Сейчас я не в сети. Пожалуйста, оставьте свои данные и мы свяжемся с вами.',
                     isBot: true,
@@ -80,9 +80,9 @@ const Guide = () => {
                 }
             ]);
         }, 1000);
-    };
+    }, [message, chatMessages]);
 
-    const handleFormChange = (e) => {
+    const handleFormChange = useCallback((e) => {
         const { name, value, type, checked } = e.target;
         setFormData(prev => ({
             ...prev,
@@ -96,9 +96,9 @@ const Guide = () => {
                 return newErrors;
             });
         }
-    };
+    }, [errors]);
 
-    const validateForm = () => {
+    const validateForm = useCallback(() => {
         const newErrors = {};
         if (!formData.first_name.trim()) newErrors.first_name = 'Введите имя';
         if (!formData.email.trim()) newErrors.email = 'Введите email';
@@ -109,40 +109,53 @@ const Guide = () => {
 
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
-    };
+    }, [formData]);
 
-
-    const handleFormSubmit = async (e) => {
+    const handleFormSubmit = useCallback(async (e) => {
         e.preventDefault();
-        if (validateForm()) {
-            try {
-                const firstUserMessage = chatMessages.find(msg => !msg.isBot)?.text || '';
-                const combinedComments = `Сообщение из чата: ${firstUserMessage}\nДополнительно: ${formData.comments}`;
+        if (!validateForm()) return;
 
-                await AppService.createApplication({
-                    ...formData,
-                    comments: combinedComments,
-                    privacy_policy_checked: true
+        try {
+            const firstUserMessage = chatMessages.find(msg => !msg.isBot)?.text || '';
+            const combinedComments = `Сообщение из чата: ${firstUserMessage}\nДополнительно: ${formData.comments}`;
+
+            await AppService.createApplication({
+                ...formData,
+                comments: combinedComments,
+                privacy_policy_checked: true
+            });
+            
+            setIsSubmitted(true);
+
+            setTimeout(() => {
+                setFormData({
+                    first_name: "",
+                    email: "",
+                    phone_number: "",
+                    comments: "",
+                    privacy_policy_checked: false
                 });
-                setIsSubmitted(true);
-
-                setTimeout(() => {
-                    setFormData({
-                        first_name: "",
-                        email: "",
-                        phone_number: "",
-                        comments: "",
-                        privacy_policy_checked: false
-                    });
-                    setIsSubmitted(false);
-                    modalClose();
-                }, 3500);
-            } catch (error) {
-                console.error('Ошибка при отправке данных:', error);
+                modalClose();
+            }, 3500);
+        } catch (error) {
+            console.error('Ошибка при отправке данных:', error);
+                setChatMessages(prev => [
+                    ...prev.filter(msg => !msg.showForm), // Удаляем сообщение с формой
+                    {
+                        text: 'Заявка с такой электронной почтой уже была отправлена. Укажите другую электронную почту.',
+                        isBot: true,
+                        showForm: true // Показываем новую форму
+                    }
+                ]);
+                
+                // Сбрасываем только email, сохраняя остальные данные
+                setFormData(prev => ({
+                    ...prev,
+                    email: ''
+                }));
                 setErrors({ submit: 'Ошибка при отправке формы' });
-            }
         }
-    };
+    }, [formData, chatMessages, validateForm, modalClose]);
 
     return (
         <div className={styles.containerGuide}>

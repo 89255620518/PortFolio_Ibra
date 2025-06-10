@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import styles from "./modal.module.scss";
 import SuccessAlert from '../successAlert/successAlert';
+import ErrorAlert from '../successAlert/errorAlert/errorAlert'
 import AppService from '../../api/apiService';
+
 
 const ModalComponent = ({ modalClose }) => {
     const [formData, setFormData] = useState({
@@ -15,6 +17,7 @@ const ModalComponent = ({ modalClose }) => {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [submitError, setSubmitError] = useState('');
+    const [showErrorAlert, setShowErrorAlert] = useState(false);
 
     const handleOverlayClick = (e) => {
         if (e.target === e.currentTarget) {
@@ -85,7 +88,7 @@ const ModalComponent = ({ modalClose }) => {
                 });
                 setIsLoading(false);
                 setIsSubmitted(true);
-                
+
                 // Очистка формы через 3 секунды
                 setTimeout(() => {
                     setFormData({
@@ -100,8 +103,23 @@ const ModalComponent = ({ modalClose }) => {
                 }, 3000);
             } catch (error) {
                 console.error('Ошибка при отправке данных:', error);
-                setSubmitError(error.message || 'Ошибка при отправке формы');
                 setIsLoading(false);
+                // Check if this is the duplicate email error
+                let errorMessage = 'Заявка с такой электронной почтой уже была отправлена. Укажите другую электронную почту.';
+                if (error.message.includes('Заявка с такой электронной почтой')) {
+                    errorMessage = 'Заявка с такой электронной почтой уже была отправлена. Укажите другую электронную почту.';
+                    setErrors(prev => ({
+                        ...prev,
+                        email: 'Укажите другую электронную почту'
+                    }));
+                }
+
+                setSubmitError(errorMessage);
+                setShowErrorAlert(true); 
+
+                setTimeout(() => {
+                    setShowErrorAlert(false);
+                }, 5000);
             }
         } else {
             setIsLoading(false);
@@ -118,13 +136,30 @@ const ModalComponent = ({ modalClose }) => {
         );
     }
 
+    if (showErrorAlert) {
+        return (
+            <div className={styles.modalOverlay} onClick={() => setShowErrorAlert(false)}>
+                <div className={styles.modalContent} onClick={handleContentClick}>
+                    <ErrorAlert 
+                        message={submitError} 
+                        onClose={() => setShowErrorAlert(false)} 
+                    />
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className={styles.modalOverlay} onClick={handleOverlayClick}>
             <div className={styles.modalContent} onClick={handleContentClick}>
                 <button className={styles.closeButton} onClick={modalClose}>×</button>
                 <h2 className={styles.modalTitle}>Оставьте заявку</h2>
                 
-                {submitError && <div className={styles.submitError}>{submitError}</div>}
+                {submitError && (
+                    <div className={styles.submitError}>
+                        {submitError}
+                    </div>
+                )}
                 
                 <form onSubmit={handleSubmit} className={styles.modalForm}>
                     <div className={styles.formGroup}>
@@ -137,7 +172,9 @@ const ModalComponent = ({ modalClose }) => {
                             onChange={handleChange}
                             className={errors.first_name ? styles.errorInput : ''}
                         />
-                        {errors.first_name && <span className={styles.errorText}>{errors.first_name}</span>}
+                        {errors.first_name && (
+                            <span className={styles.errorText}>{errors.first_name}</span>
+                        )}
                     </div>
                     
                     <div className={styles.formGroup}>
@@ -150,7 +187,9 @@ const ModalComponent = ({ modalClose }) => {
                             onChange={handleChange}
                             className={errors.email ? styles.errorInput : ''}
                         />
-                        {errors.email && <span className={styles.errorText}>{errors.email}</span>}
+                        {errors.email && (
+                            <span className={styles.errorText}>{errors.email}</span>
+                        )}
                     </div>
                     
                     <div className={styles.formGroup}>
@@ -163,7 +202,9 @@ const ModalComponent = ({ modalClose }) => {
                             onChange={handleChange}
                             className={errors.phone_number ? styles.errorInput : ''}
                         />
-                        {errors.phone_number && <span className={styles.errorText}>{errors.phone_number}</span>}
+                        {errors.phone_number && (
+                            <span className={styles.errorText}>{errors.phone_number}</span>
+                        )}
                     </div>
                     
                     <div className={styles.formGroup}>

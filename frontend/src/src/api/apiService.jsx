@@ -15,11 +15,12 @@ const AppService = {
             const response = await apiClient.post('/applications/createApplication', appData);
             return response.data;
         } catch (error) {
-            if (axios.isAxiosError(error)) {
-                const apiError = error;
-                throw new Error(apiError.response?.data?.message || 'Ошибка отправки заявки');
+            if (error.response && error.response.status === 500 && 
+                error.response.data && error.response.data.message) {
+                throw new Error(error.response.data.message);
+            } else {
+                throw new Error('Ошибка отправки заявки');
             }
-            throw new Error('Ошибка отправки заявки');
         }
     },
 
