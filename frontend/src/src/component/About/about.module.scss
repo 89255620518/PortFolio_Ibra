@@ -102,6 +102,7 @@
         font-size: 1.2rem;
         text-align: center;
         margin-top: 2rem;
+        color: #000;
     }
 
     .highlight {
@@ -201,6 +202,7 @@
     align-items: center;
     padding: 1rem;
     padding-top: 50px;
+    -webkit-overflow-scrolling: touch;
     animation: fadeIn 0.3s ease-out;
 
     @keyframes fadeIn {
@@ -291,7 +293,7 @@
     min-height: 500px;
 
     @media (max-width: 768px) {
-        min-height: 300px;
+        height: 70vh;
     }
 }
 
@@ -348,4 +350,10 @@
     border-radius: 4px;
     font-size: 0.9rem;
     text-align: center;
+}
+
+@supports (-webkit-touch-callout: none) {
+    .pdfIframe {
+        height: 65vh; // Специальная высота для Safari iOS
+    }
 }
