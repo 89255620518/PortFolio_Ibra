@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 // const API_URL = 'http://localhost:3001/api/';
-const API_URL = 'http://46.173.19.21:3001/api/';
+// const API_URL = 'http://46.173.19.21:3001/api/';
+const API_URL = 'https://ibrokhim.ru/api/'
 
 
 const apiClient = axios.create({
