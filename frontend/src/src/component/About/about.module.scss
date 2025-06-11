@@ -110,79 +110,159 @@
     }
 }
 
+// Стили для креативной кнопки
 .resumeWrapper {
-    margin: 2rem 0;
-    perspective: 1000px;
+    margin-top: 2rem;
     text-align: center;
+
+    @media screen and (max-width: 500px) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 }
 
 .resumeButton {
     position: relative;
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 1.5rem 2rem;
+    padding: 1rem 2rem;
     background: linear-gradient(135deg, #6e8efb, #a777e3);
     color: white;
-    border-radius: 12px;
-    text-decoration: none;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    cursor: pointer;
     overflow: hidden;
     transition: all 0.3s ease;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    border: none;
-    cursor: pointer;
-    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    @media screen and (max-width: 500px) {
+        display: flex;
+        flex-direction: column;
+    }
 
     &:hover {
-        transform: translateY(-3px) scale(1.02);
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-
-        .resumeHoverEffect {
-            transform: translateY(0) rotate(0deg);
-            opacity: 1;
-        }
+        box-shadow:
+            0 0 10px #6e8efb,
+            0 0 20px #a777e3,
+            0 0 30px rgba(167, 119, 227, 0.5);
+        text-shadow: 0 0 5px white;
     }
 
-    &:active {
-        transform: translateY(1px);
-    }
-}
-
-.resumeIcon {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-    transition: transform 0.3s ease;
-
-    .resumeButton:hover & {
-        transform: rotate(15deg) scale(1.1);
+    &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
     }
 }
 
-.resumeText {
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
+.resumeLoader {
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s linear infinite;
 }
 
-.resumeAction {
-    font-size: 1.2rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
 }
 
-.resumeHoverEffect {
-    position: absolute;
+.errorTooltip {
+    margin-top: 0.5rem;
+    color: #ff6b6b;
+    font-size: 0.9rem;
+}
+
+/* Стили для модального окна */
+.modalOverlay {
+    position: fixed;
     top: 0;
     left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-out;
+
+    @media screen and (max-width: 500px) {
+        padding-top: 60px;
+    }
+}
+
+.modalContent {
+    background: white;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 900px;
+    max-height: 90vh;
+    overflow: hidden;
+    position: relative;
+    animation: slideUp 0.3s ease-out;
+}
+
+.closeButton {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+    z-index: 10;
+    transition: all 0.2s;
+
+    @media screen and (max-width: 500px) {
+        top: 0;
+        left: 0;
+        right: auto;
+    }
+
+    &:hover {
+        color: #333;
+        transform: scale(1.1);
+    }
+}
+
+.pdfIframe {
     width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg,
-            transparent 45%,
-            rgba(255, 255, 255, 0.3) 50%,
-            transparent 55%);
-    transform: translateY(-100%) rotate(10deg);
-    opacity: 0;
-    transition: all 0.5s ease;
-    pointer-events: none;
+    height: 80vh;
+    border: none;
+}
+
+.pdfLoader {
+    padding: 2rem;
+    text-align: center;
+    color: #666;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
