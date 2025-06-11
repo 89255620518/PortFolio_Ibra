@@ -70,7 +70,6 @@ const About = ({ aboutRef }) => {
             if (!url) return;
         }
         setIsResumeOpen(true);
-        document.body.style.overflow = 'hidden';
     }, [pdfUrl, loadPdf]);
 
     const closeModal = useCallback(() => {
