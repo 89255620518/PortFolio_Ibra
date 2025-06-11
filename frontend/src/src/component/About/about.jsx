@@ -132,7 +132,7 @@ const About = ({ aboutRef }) => {
                     {error ? "Ошибка загрузки" : "Хочешь узнать меня формально?"}
                     </span>
                     <span className={styles.resumeAction}>
-                    {error ? "Попробовать снова" : "Вот мое резюме"}
+                    {error ? "Попробовать снова" : "🕹️ Кликни сюда!"}
                     </span>
                     <span className={styles.resumeHoverEffect} aria-hidden="true"></span>
                 </>
