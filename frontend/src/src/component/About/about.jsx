@@ -104,7 +104,7 @@ const About = ({ aboutRef }) => {
         </div>
 
         {/* Модальное окно для PDF */}
-        {isResumeOpen && (
+        {/* {isResumeOpen && (
             <div className={styles.modalOverlay} onClick={() => setIsResumeOpen(false)}>
             <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
                 <button 
@@ -129,7 +129,54 @@ const About = ({ aboutRef }) => {
                 )}
             </div>
             </div>
-        )}
+        )} */}
+        {isResumeOpen && (
+            <div className={styles.modalOverlay} onClick={() => setIsResumeOpen(false)}>
+                <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+                <button 
+                    className={styles.closeButton}
+                    onClick={() => setIsResumeOpen(false)}
+                    aria-label="Закрыть"
+                >
+                    &times;
+                </button>
+                
+                {pdfUrl ? (
+                    <div className={styles.pdfContainer}>
+                    <iframe 
+                        src={`${pdfUrl}#view=fitH`}
+                        className={styles.pdfIframe}
+                        title="Резюме Иброхима Эргешева"
+                        allow="autoplay"
+                        loading="lazy"
+                    />
+                    <div className={styles.pdfControls}>
+                        <a 
+                        href={pdfUrl} 
+                        download="Резюме_Иброхим_Эргешев.pdf"
+                        className={styles.downloadButton}
+                        >
+                        📥 Скачать резюме
+                        </a>
+                    </div>
+                    </div>
+                ) : (
+                    <div className={styles.pdfLoader}>
+                    {isLoading ? (
+                        <div className={styles.loaderAnimation}>
+                        <div className={styles.spinner}></div>
+                        Загрузка резюме...
+                        </div>
+                    ) : (
+                        "PDF не доступен"
+                    )}
+                    </div>
+                )}
+                </div>
+            </div>
+            )}
+
+        
         </div>
     );
 };
