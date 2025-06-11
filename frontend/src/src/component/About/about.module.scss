@@ -289,12 +289,7 @@
 .pdfIframe {
     width: 100%;
     flex: 1;
-    border: none;
-    min-height: 500px;
 
-    @media (max-width: 768px) {
-        height: 70vh;
-    }
 }
 
 .pdfControls {
